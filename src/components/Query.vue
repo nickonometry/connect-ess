@@ -4,7 +4,7 @@
         <v-layout align-space-around justify-space-between row>
           <v-flex xs2 align-self-center>
             <v-card-text class="pa-0 text-xs-left">
-              <p class="pa-0 ma-0">{{currentDates[currentIndex]}}</p>
+              <p class="pa-0 ma-0">{{formattedDate}}</p>
             </v-card-text>
           </v-flex>
           <v-flex xs2 align-self-center>
@@ -33,7 +33,7 @@
           </v-flex>
           <v-flex xs2 align-self-center>
             <v-card-text class="pa-0">
-                <v-btn outline color="indigo" v-on:click="updateParentPicker(currentIndex);">Remove</v-btn>
+                <v-btn outline color="indigo" v-on:click="updateParentPicker(currentIndex); updateParentPickerDuplicated(currentIndex);">Remove</v-btn>
             </v-card-text>
           </v-flex>
         </v-layout>
@@ -68,9 +68,7 @@
           </v-flex>
           <v-flex xs2 align-self-center>
             <v-card-text class="pa-0">
-                <v-btn v-on:click="duplicated = !duplicated; updateParentPickerDuplicated(currentIndex);" flat icon color="indigo">
-              <v-icon>clear</v-icon>
-            </v-btn>
+                <v-btn outline color="indigo" v-on:click="duplicated = !duplicated; updateParentPickerDuplicated(currentIndex);">Remove</v-btn>
             </v-card-text>
           </v-flex>
         </v-layout>
@@ -104,11 +102,17 @@ export default {
         dateSelected: null,
         duplicatedRows: [],
         duplicated: false,
+        formattedDate: null,
     };
   },
   mounted: function() {
       this.$eventBus.$emit("InitialHourAdd", {hours: '0', index: this.currentIndex});
       this.$eventBus.$emit("InitialDuplicatedHourAdd", {hours: '0', index: this.currentIndex});
+      var d = this.currentDates[this.currentIndex];
+      var day = d.substr(6, 6);
+      var year = d.substr(0, 4);
+      var replaceSlash = day.replace("-", "/")
+      this.formattedDate = replaceSlash + '/' + year;
   },
   methods: {
     updateParentPicker(lineId) {

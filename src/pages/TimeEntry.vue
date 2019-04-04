@@ -1,8 +1,6 @@
 <template>
   <div class="about">
     <div style="margin-bottom: 24px;"><span class="headline" style="margin-bottom: 24px;">Time Entry</span></div>
-    <p>{{totalNumberOfHours}}</p>
-    <p>{{totalNumberOfDuplicatedHours}}</p>
       <v-container grid-list-xl text-xs-center fluid pa-2>
         <v-layout row wrap>
           <v-flex xs3 pa-0>
@@ -63,6 +61,12 @@
                 />
               </div>
             </v-card>
+            <v-container fluid>
+              <v-layout align-center justify-end row fill-height>
+                <v-btn outline color="indigo">Cancel</v-btn>
+                <v-btn color="primary">Submit</v-btn>
+              </v-layout>   
+            </v-container>
           </v-flex>
         </v-layout>
       </v-container>
@@ -87,17 +91,20 @@ export default {
   },
   computed: {
     totalSumOfHours(){
-        var sum = 0;
-        var i = 0;
-        for (i=0; i < this.totalNumberOfHours.length; i++) {
-          sum += parseInt(this.totalNumberOfHours[i]);
-        }
+      var sum = this.totalNumberOfHours.reduce((prev, curr) => prev + (+curr), 0);
+      var sumD = this.totalNumberOfDuplicatedHours.reduce((prev, curr) => prev + (+curr), 0);
 
-        var sumD = 0;
-        var d = 0;
-        for (d=0; d < this.totalNumberOfDuplicatedHours.length; d++) {
-          sumD += parseInt(this.totalNumberOfDuplicatedHours[d]);
-        }
+        // var sum = 0;
+        // var i = 0;
+        // for (i=0; i < this.totalNumberOfHours.length; i++) {
+        //   sum += parseInt(this.totalNumberOfHours[i]);
+        // }
+
+        // var sumD = 0;
+        // var d = 0;
+        // for (d=0; d < this.totalNumberOfDuplicatedHours.length; d++) {
+        //   sumD += parseInt(this.totalNumberOfDuplicatedHours[d]);
+        // }
         return sum + sumD;
     }
   },
@@ -107,6 +114,7 @@ export default {
       this.totalNumberOfHours.splice(data.index, 1);
     });
     this.$eventBus.$on("RemoveMeDuplicated", data => {
+      console.log("She runnin bud");
       if (typeof this.dates_selected[data.index] === 'undefined') {
          this.totalNumberOfDuplicatedHours.splice(data.index, 1);
       } else {
