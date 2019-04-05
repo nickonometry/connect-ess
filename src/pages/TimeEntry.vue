@@ -1,6 +1,5 @@
 <template>
   <div class="about">
-    <p>Sorted dates: {{sortDates}}</p>
     <div style="margin-bottom: 24px;"><span class="headline" style="margin-bottom: 24px;">Time Entry</span></div>
       <v-container grid-list-xl text-xs-center fluid pa-2>
         <v-layout row wrap>
@@ -52,15 +51,19 @@
               </v-container>
 
               <v-divider></v-divider>
+              <transition name="fade">
               <div>
-                <Query
-                  v-for="(line, index) in dates_selected"
-                  v-bind:key="line"
-                  :currentIndex="index"
-                  :currentDates="dates_selected"
-                  ref="dateRows"
-                />
+                <transition-group name="slide-fade">
+                  <Query
+                    v-for="(line, index) in dates_selected"
+                    v-bind:key="line"
+                    :currentIndex="index"
+                    :currentDates="dates_selected"
+                    ref="dateRows"
+                  />
+                  </transition-group>
               </div>
+              </transition>
             </v-card>
             <v-container fluid>
               <v-layout align-center justify-end row fill-height>
@@ -139,3 +142,17 @@ export default {
   },
 };
 </script>
+
+<style>
+.slide-fade-enter-active {
+  transition: all .5s ease;
+}
+.slide-fade-leave-active {
+  transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(-10px);
+  opacity: 0;
+}
+</style>
