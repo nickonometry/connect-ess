@@ -1,5 +1,6 @@
 <template>
   <div class="about">
+    <p>Sorted dates: {{sortDates}}</p>
     <div style="margin-bottom: 24px;"><span class="headline" style="margin-bottom: 24px;">Time Entry</span></div>
       <v-container grid-list-xl text-xs-center fluid pa-2>
         <v-layout row wrap>
@@ -78,12 +79,8 @@ export default {
   data() {
     return {
       dates_selected: [],
-      menu: false,
-      test: ["Bar", "Fizz", "Buzz"],
       totalNumberOfHours: [],
       totalNumberOfDuplicatedHours: [],
-      message: 'hello',
-      date_rows: [],
     };
   },
   methods: {
@@ -93,7 +90,6 @@ export default {
     totalSumOfHours(){
       var sum = this.totalNumberOfHours.reduce((prev, curr) => prev + (+curr), 0);
       var sumD = this.totalNumberOfDuplicatedHours.reduce((prev, curr) => prev + (+curr), 0);
-
         // var sum = 0;
         // var i = 0;
         // for (i=0; i < this.totalNumberOfHours.length; i++) {
@@ -106,6 +102,10 @@ export default {
         //   sumD += parseInt(this.totalNumberOfDuplicatedHours[d]);
         // }
         return sum + sumD;
+    },
+    sortDates() {
+      var a = this.dates_selected.sort();
+      return a;
     }
   },
   mounted: function() {
