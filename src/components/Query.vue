@@ -91,9 +91,9 @@ export default {
     },
   data() {
     return {
-        position: ['Cafetaria', 'Crossing Guard'],
-        positionSelected: 'Cafetaria',
-        positionSelectedDuplicated: 'Cafetaria',
+        position: ['Cafeteria', 'Crossing Guard'],
+        positionSelected: 'Cafeteria',
+        positionSelectedDuplicated: 'Cafeteria',
         payType: ['Regular', 'Overtime'],
         payTypeSelected: 'Regular',
         payTypeSelectedDuplicated: 'Regular',
