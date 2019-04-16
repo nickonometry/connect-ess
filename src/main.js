@@ -7,6 +7,7 @@ import LeftNavigation from "./components/LeftNavigation";
 import RightNavigation from "./components/RightNavigation";
 import TimeEntryComponent from "./components/TimeEntryComponent";
 import Query from "./components/Query";
+import subQuery from "./components/subQuery";
 
 Vue.prototype.$eventBus = new Vue();
 
@@ -17,6 +18,7 @@ Vue.component('LeftNavigation', LeftNavigation);
 Vue.component('RightNavigation', RightNavigation);
 Vue.component('TimeEntryComponent', TimeEntryComponent);
 Vue.component('Query', Query);
+Vue.component('subQuery', subQuery);
 
 
 new Vue({
